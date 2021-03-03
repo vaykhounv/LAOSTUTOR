@@ -113,7 +113,7 @@ from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.course_duration_limits.access import generate_course_expired_fragment
 from openedx.features.course_experience import DISABLE_UNIFIED_COURSE_TAB_FLAG, course_home_url_name
 from openedx.features.course_experience.course_tools import CourseToolsPluginManager
-from openedx.features.course_experience.url_helpers import get_legacy_courseware_url
+from openedx.features.course_experience.url_helpers import get_courseware_url
 from openedx.features.course_experience.utils import dates_banner_should_display
 from openedx.features.course_experience.views.course_dates import CourseDatesFragmentView
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
@@ -383,7 +383,7 @@ def jump_to_id(request, course_id, module_id):
 
 
 @ensure_csrf_cookie
-def jump_to(_request, course_id, location):
+def jump_to(request, course_id, location):
     """
     Show the page that contains a specific location.
     If the location is invalid or not in any class, return a 404.
@@ -396,7 +396,7 @@ def jump_to(_request, course_id, location):
     except InvalidKeyError:
         raise Http404(u"Invalid course_key or usage_key")  # lint-amnesty, pylint: disable=raise-missing-from
     try:
-        redirect_url = get_legacy_courseware_url(usage_key, _request)
+        redirect_url = get_courseware_url(usage_key, request)
     except ItemNotFoundError:
         raise Http404(u"No data at this location: {0}".format(usage_key))  # lint-amnesty, pylint: disable=raise-missing-from
     except NoPathToItem:
