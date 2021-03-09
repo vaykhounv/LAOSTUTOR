@@ -21,6 +21,8 @@ from common.djangoapps.student.models import (
     CourseEnrollmentAttribute,
     ManualEnrollmentAudit
 )
+from openedx.core.djangoapps.catalog.utils import get_course_uuid_for_course
+from common.djangoapps.entitlements.models import CourseEntitlement
 from common.djangoapps.util.json_request import JsonResponse
 from lms.djangoapps.support.decorators import require_support_permission
 from lms.djangoapps.support.serializers import ManualEnrollmentSerializer
@@ -130,6 +132,15 @@ class EnrollmentSupportListView(GenericAPIView):
                     CourseEnrollmentAttribute.add_enrollment_attr(
                         enrollment=enrollment, data_list=[credit_provider_attr]
                     )
+                entitlement = CourseEntitlement.objects.filter(
+                    user=user,
+                    course_uuid=get_course_uuid_for_course(course_id),
+                    mode=new_mode,
+                    expired_at=None,
+                    enrollment_course_run=None
+                )
+                if entitlement.exists():
+                    entitlement[0].set_enrollment(CourseEnrollment.get_enrollment(user, course_id))
                 return JsonResponse(ManualEnrollmentSerializer(instance=manual_enrollment).data)
         except CourseModeNotFoundError as err:
             return HttpResponseBadRequest(str(err))
