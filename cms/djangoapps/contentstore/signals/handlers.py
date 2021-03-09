@@ -112,6 +112,7 @@ def handle_item_deleted(**kwargs):
             # Remove any 'requires' course content milestone relationships
             gating_api.set_required_content(course_key, module.location, None, None, None)
 
+
 def _enqueue_recompute_grades_task(course_key, grading_policy_hash=None):
     """
     Helper function to enqueue a recompute course grades task.
@@ -131,6 +132,7 @@ def _enqueue_recompute_grades_task(course_key, grading_policy_hash=None):
         kwargs=kwargs,
     ))
 
+
 @receiver(GRADING_POLICY_CHANGED)
 @locked(expiry_seconds=GRADING_POLICY_COUNTDOWN_SECONDS, key='course_key')
 def handle_grading_policy_changed(sender, **kwargs):
@@ -142,6 +144,7 @@ def handle_grading_policy_changed(sender, **kwargs):
         kwargs.get('course_key'),
         kwargs.get('grading_policy_hash')
     )
+
 
 @receiver(COURSE_BLOCK_VISIBILTY_CHANGED)
 def handle_course_block_visibility_changed(sender, **kwargs):
