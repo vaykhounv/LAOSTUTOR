@@ -61,6 +61,10 @@ ${static.get_page_title_breadcrumbs(course_name())}
 
 </%block>
 
+<%block name="skip_links">
+  <a class="nav-skip sr-only sr-only-focusable" href="#skip-nav-target">${_("Skip to main content")}</a>
+</%block>
+
 <%block name="js_extra">
   <script type="text/javascript" src="${static.url('common/js/vendor/jquery.scrollTo.js')}" async></script>
   <script type="text/javascript" src="${static.url('js/vendor/flot/jquery.flot.js')}" async></script>
@@ -78,8 +82,6 @@ ${HTML(fragment.foot_html())}
 
 </%block>
 
-    <%block name="skip_links"/>
-    <a class="nav-skip sr-only sr-only-focusable" href="#skip-nav-target">${_("Skip to main content")}</a>
 
 <div class="course-wrapper chromeless">
   <section class="course-content" id="course-content"\
@@ -91,7 +93,7 @@ ${HTML(fragment.foot_html())}
     style="display: block; width: auto; margin: 0;"
   >
       <main id="main" aria-label="Content">
-        <a id=”skip-nav-target” class=”sr-only sr-only-focusable”>Top of main content</a>
+        <a id=”skip-nav-target” class="nav-skip sr-only sr-only-focusable">Top of main content</a>
         ${HTML(fragment.body_html())}
       </main>
   </section>
