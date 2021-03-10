@@ -78,6 +78,9 @@ ${HTML(fragment.foot_html())}
 
 </%block>
 
+    <%block name="skip_links"/>
+    <a class="nav-skip sr-only sr-only-focusable" href="#skip-nav-target">${_("Skip to main content")}</a>
+
 <div class="course-wrapper chromeless">
   <section class="course-content" id="course-content"\
     % if enable_completion_on_view_service:
@@ -87,7 +90,8 @@ ${HTML(fragment.foot_html())}
     % endif
     style="display: block; width: auto; margin: 0;"
   >
-      <main id="main" tabindex="-1" aria-label="Content">
+      <main id="main" aria-label="Content">
+        <a id=”skip-nav-target” class=”sr-only sr-only-focusable”>Top of main content</a>
         ${HTML(fragment.body_html())}
       </main>
   </section>
