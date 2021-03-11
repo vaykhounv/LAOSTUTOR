@@ -3,7 +3,6 @@ Configuration models for Video XModule
 """
 
 
-import six
 from config_models.models import ConfigurationModel
 from django.db import models
 from django.db.models import BooleanField, PositiveIntegerField, TextField
@@ -63,7 +62,7 @@ class HLSPlaybackEnabledFlag(ConfigurationModel):
 
     def __str__(self):
         current_model = HLSPlaybackEnabledFlag.current()
-        return u"HLSPlaybackEnabledFlag: enabled {is_enabled}".format(
+        return "HLSPlaybackEnabledFlag: enabled {is_enabled}".format(
             is_enabled=current_model.is_enabled()
         )
 
@@ -95,8 +94,8 @@ class CourseHLSPlaybackEnabledFlag(ConfigurationModel):
         if self.enabled:
             not_en = ""
 
-        return u"Course '{course_key}': HLS Playback {not_enabled}Enabled".format(
-            course_key=six.text_type(self.course_id),
+        return "Course '{course_key}': HLS Playback {not_enabled}Enabled".format(
+            course_key=str(self.course_id),
             not_enabled=not_en
         )
 
@@ -131,8 +130,8 @@ class CourseYoutubeBlockedFlag(ConfigurationModel):
         if self.enabled:
             not_en = ""
 
-        return u"Course '{course_key}': Youtube Block {not_enabled}Enabled".format(
-            course_key=six.text_type(self.course_id),
+        return "Course '{course_key}': Youtube Block {not_enabled}Enabled".format(
+            course_key=str(self.course_id),
             not_enabled=not_en
         )
 
@@ -178,7 +177,7 @@ class VideoTranscriptEnabledFlag(ConfigurationModel):
 
     def __str__(self):
         current_model = VideoTranscriptEnabledFlag.current()
-        return u"VideoTranscriptEnabledFlag: enabled {is_enabled}".format(
+        return "VideoTranscriptEnabledFlag: enabled {is_enabled}".format(
             is_enabled=current_model.is_enabled()
         )
 
@@ -202,8 +201,8 @@ class CourseVideoTranscriptEnabledFlag(ConfigurationModel):
         if self.enabled:
             not_en = ""
 
-        return u"Course '{course_key}': Video Transcript {not_enabled}Enabled".format(
-            course_key=six.text_type(self.course_id),
+        return "Course '{course_key}': Video Transcript {not_enabled}Enabled".format(
+            course_key=str(self.course_id),
             not_enabled=not_en
         )
 
@@ -217,8 +216,8 @@ class TranscriptMigrationSetting(ConfigurationModel):
     """
     def __str__(self):
         return (
-            u"[TranscriptMigrationSetting] Courses {courses} with update if already present as {force}"
-            u" and commit as {commit}"
+            "[TranscriptMigrationSetting] Courses {courses} with update if already present as {force}"
+            " and commit as {commit}"
         ).format(
             courses='ALL' if self.all_courses else self.course_ids,
             force=self.force_update,
@@ -226,21 +225,21 @@ class TranscriptMigrationSetting(ConfigurationModel):
         )
     force_update = BooleanField(
         default=False,
-        help_text=u"Flag to force migrate transcripts for the requested courses, overwrite if already present."
+        help_text="Flag to force migrate transcripts for the requested courses, overwrite if already present."
     )
     command_run = PositiveIntegerField(default=0)
     batch_size = PositiveIntegerField(default=0)
     commit = BooleanField(
         default=False,
-        help_text=u"Dry-run or commit."
+        help_text="Dry-run or commit."
     )
     all_courses = BooleanField(
         default=False,
-        help_text=u"Process all courses."
+        help_text="Process all courses."
     )
     course_ids = TextField(
         blank=False,
-        help_text=u"Whitespace-separated list of course keys for which to migrate transcripts."
+        help_text="Whitespace-separated list of course keys for which to migrate transcripts."
     )
 
     def increment_run(self):
@@ -263,7 +262,7 @@ class MigrationEnqueuedCourse(TimeStampedModel):
     command_run = PositiveIntegerField(default=0)
 
     def __str__(self):
-        return u'MigrationEnqueuedCourse: ID={course_id}, Run={command_run}'.format(
+        return 'MigrationEnqueuedCourse: ID={course_id}, Run={command_run}'.format(
             course_id=self.course_id, command_run=self.command_run
         )
 
@@ -281,15 +280,15 @@ class VideoThumbnailSetting(ConfigurationModel):
     videos_per_task = PositiveIntegerField(default=0)
     commit = BooleanField(
         default=False,
-        help_text=u"Dry-run or commit."
+        help_text="Dry-run or commit."
     )
     all_course_videos = BooleanField(
         default=False,
-        help_text=u"Process all videos."
+        help_text="Process all videos."
     )
     course_ids = TextField(
         blank=True,
-        help_text=u"Whitespace-separated list of course ids for which to update videos."
+        help_text="Whitespace-separated list of course ids for which to update videos."
     )
 
     def increment_run(self):
@@ -326,6 +325,6 @@ class UpdatedCourseVideos(TimeStampedModel):
         unique_together = ('course_id', 'edx_video_id')
 
     def __str__(self):
-        return u'UpdatedCourseVideos: CourseID={course_id}, VideoID={video_id}, Run={command_run}'.format(
+        return 'UpdatedCourseVideos: CourseID={course_id}, VideoID={video_id}, Run={command_run}'.format(
             course_id=self.course_id, video_id=self.edx_video_id, command_run=self.command_run
         )

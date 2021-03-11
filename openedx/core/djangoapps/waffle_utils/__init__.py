@@ -34,7 +34,7 @@ class WaffleSwitchNamespace(LegacyWaffleSwitchNamespace):
             stacklevel=2,
         )
         set_custom_attribute(
-            "deprecated_waffle_utils", "WaffleSwitchNamespace[{}]".format(name)
+            "deprecated_waffle_utils", f"WaffleSwitchNamespace[{name}]"
         )
 
     @contextmanager
@@ -74,7 +74,7 @@ class WaffleSwitch(LegacyWaffleSwitch):
             stacklevel=2,
         )
         set_custom_attribute(
-            "deprecated_waffle_utils", "WaffleSwitch[{}]".format(self.name)
+            "deprecated_waffle_utils", f"WaffleSwitch[{self.name}]"
         )
 
 
@@ -91,7 +91,7 @@ class WaffleFlagNamespace(LegacyWaffleFlagNamespace):
             stacklevel=2,
         )
         set_custom_attribute(
-            "deprecated_waffle_utils", "WaffleFlagNamespace[{}]".format(name)
+            "deprecated_waffle_utils", f"WaffleFlagNamespace[{name}]"
         )
 
 
@@ -108,7 +108,7 @@ class WaffleFlag(LegacyWaffleFlag):
             stacklevel=2,
         )
         set_custom_attribute(
-            "deprecated_waffle_utils", "WaffleFlag[{}]".format(self.name)
+            "deprecated_waffle_utils", f"WaffleFlag[{self.name}]"
         )
 
     @contextmanager

@@ -276,4 +276,4 @@ def setting_dict_name(dict_name, key):
     """
     Return the name associated to a `dict_name[key]` setting.
     """
-    return "{dict_name}['{key}']".format(dict_name=dict_name, key=key)
+    return f"{dict_name}['{key}']"
