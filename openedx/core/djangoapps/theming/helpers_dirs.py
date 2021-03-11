@@ -107,7 +107,7 @@ def get_project_root_name_from_settings(project_root):
 
 
 @python_2_unicode_compatible
-class Theme(object):
+class Theme:
     """
     class to encapsulate theme related information.
     """
@@ -146,7 +146,7 @@ class Theme(object):
 
     def __str__(self):
         # pylint: disable=line-too-long
-        return u"<Theme: {name} at '{path}'>".format(name=self.name, path=self.path)  # xss-lint: disable=python-wrap-html
+        return f"<Theme: {self.name} at '{self.path}'>"  # xss-lint: disable=python-wrap-html
 
     def __repr__(self):
         return self.__str__()
