@@ -4,11 +4,10 @@ Shared test utilities for Safe Sessions tests
 
 
 from contextlib import contextmanager
+from unittest.mock import patch
 
-from mock import patch
 
-
-class TestSafeSessionsLogMixin(object):
+class TestSafeSessionsLogMixin:
     """
     Test Mixin class with helpers for testing log method
     calls in the safe sessions middleware.
@@ -122,7 +121,7 @@ class TestSafeSessionsLogMixin(object):
         was not equal to user at response
         """
         with self.assert_logged_with_message(
-            u"SafeCookieData user at request '{}' does not match user at response: '{}'".format(
+            "SafeCookieData user at request '{}' does not match user at response: '{}'".format(
                 user_at_request, user_at_response
             ),
             log_level=log_level,
@@ -136,7 +135,7 @@ class TestSafeSessionsLogMixin(object):
         was not equal to user at session
         """
         with self.assert_logged_with_message(
-            u"SafeCookieData user at request '{}' does not match user in session: '{}'".format(
+            "SafeCookieData user at request '{}' does not match user in session: '{}'".format(
                 user_at_request, user_in_session
             ),
             log_level='warning',
