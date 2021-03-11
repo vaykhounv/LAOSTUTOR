@@ -43,7 +43,7 @@ class TPAContextView(APIView):
         if REDIRECT_KEY not in request_params:
             return Response(
                 status=status.HTTP_400_BAD_REQUEST,
-                data={'message': 'Request missing required parameter: {}'.format(REDIRECT_KEY)}
+                data={'message': f'Request missing required parameter: {REDIRECT_KEY}'}
             )
 
         redirect_to = request_params.get(REDIRECT_KEY)
