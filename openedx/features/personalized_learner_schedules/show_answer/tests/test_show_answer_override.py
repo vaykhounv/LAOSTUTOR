@@ -4,7 +4,7 @@ import ddt
 from django.test import RequestFactory
 from django.test.utils import override_settings
 
-from common.lib.xmodule.xmodule.capa_base import SHOWANSWER
+from xmodule.capa_base import SHOWANSWER
 from lms.djangoapps.ccx.tests.test_overrides import inject_field_overrides
 from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module
